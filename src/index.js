@@ -39,7 +39,7 @@ import ThreeDots from './components/ThreeDots.vue'
 import TwoCube from './components/TwoCube.vue'
 import Wave from './components/Wave.vue'
 
-export {
+var components =  {
   Circle,
   Circle2,
   Circle3,
@@ -80,4 +80,20 @@ export {
   ThreeDots,
   TwoCube,
   Wave
+};
+const install = function(Vue, opts = {}) {
+   if (opts.type == 'CDN') {
+    Object.keys(components).forEach(key => {
+      let name = 'i' + key.replace(/([A-Z])/g, '-$1').toLowerCase();
+      Vue.component(name, components[key])
+    })
+  } else {
+    Object.keys(components).forEach(key => {
+      Vue.component(key, components[key])
+    })
+  }
 }
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue, { type: 'CDN' })
+}
+export default Object.assign(components, { install });
