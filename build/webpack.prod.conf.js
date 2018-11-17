@@ -11,7 +11,9 @@ var webpackConfig ={
   output: {
     library: 'VueLoadingSpinner',
     path: path.resolve(__dirname, '../dist'),
-    filename: '[name].js'
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
